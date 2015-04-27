@@ -5,7 +5,9 @@ import javax.swing.JFrame;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.peaksmartphone.manpowerplanner.db.SessionManager;
+import com.peaksmartphone.manpowerplanner.core.db.SessionManager;
+import com.peaksmartphone.manpowerplanner.core.gui.mainpage.MainPageController;
+import com.peaksmartphone.manpowerplanner.utils.MPPProperties;
 
 /**
  * <p> Title: {@link MPPManager}</p>
@@ -25,9 +27,7 @@ public class MPPManager
   
   private final SessionManager sessionManager;
   private JFrame mApplicationWindow;
-  private boolean mDisplayWorkingTime;
-  private boolean mDisplayHoliday;
-  private boolean mEnableOrderModule = false;
+  private MainPageController mMainPageController;
 
   private static MPPManager instance = null;
   
@@ -71,7 +71,7 @@ public class MPPManager
    * @param pDBURL jdbc address of the database
    * @param pDBSchema db schema where the prp tables are stored
    */
-  public static void initPRPManager(final String pDBUser, 
+  public static void initMPPManager(final String pDBUser, 
       final String pDBPassword,
       final String pDBURL,
       final String pDBSchema,
@@ -123,5 +123,21 @@ public class MPPManager
   public void setApplicationWindow(JFrame pApplicationWindow)
   {
     mApplicationWindow = pApplicationWindow;
+  }
+
+  /**
+   * @return the mainPageController
+   */
+  public MainPageController getMainPageController()
+  {
+    return mMainPageController;
+  }
+
+  /**
+   * @param pMainPageController the mainPageController to set
+   */
+  public void setMainPageController(MainPageController pMainPageController)
+  {
+    mMainPageController = pMainPageController;
   }
 }

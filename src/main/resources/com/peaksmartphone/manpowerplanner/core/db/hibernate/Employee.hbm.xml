@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2015 11:31:05 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.peaksmartphone.manpowerplanner.core.data.Employee" table="EMPLOYEE" mutable="true">
+       <id name="mId" access="field" column="EMP_ID" type="java.lang.String" length="36">
+       		<generator class="assigned"/>
+       </id>
+       <version name="mVersion" column="VERSION" access="field" unsaved-value="null" />
+       <property name="mEmployeeName" column="EMP_NAME" length="50" access="field" type="java.lang.String" />
+       <property name="mMaxOccurInWeek" column="MAX_OCCUR_IN_WEEK" access="field" type="integer" />
+    </class>
+</hibernate-mapping>

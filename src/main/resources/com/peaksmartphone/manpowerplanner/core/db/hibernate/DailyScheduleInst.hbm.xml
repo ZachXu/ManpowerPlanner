@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2015 11:31:05 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst"
+		table="DAILYSCHEDULEINST">
+		<id name="mId" access="field" column="DSCHED_ID" type="java.lang.String"
+			length="36">
+			<generator class="assigned" />
+		</id>
+		<version name="mVersion" column="VERSION" access="field"
+			unsaved-value="null" />
+		<property name="mDailyScheduleDefId" column="DSCHEDDEF_ID"
+			length="36" access="field" type="java.lang.String" />
+		<property name="mScheduledDate" column="SCHED_DATE" access="field"
+			type="date" />
+
+		<set batch-size="250" name="mAssignedEmployees" access="field" table="DSD_EMP_INST" lazy="false">
+            <key column="DSCHED_ID" />
+            <many-to-many lazy="false" fetch="join" class="com.peaksmartphone.manpowerplanner.core.data.Employee" column="EMP_ID" />
+       	</set>
+
+	</class>
+</hibernate-mapping>

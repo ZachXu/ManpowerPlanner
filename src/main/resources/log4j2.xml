@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn" shutdownHook="disable" monitorInterval="5">
+	<properties>
+		<property name="logDir">logs</property>
+		<property name="serverfile">info.log</property>
+		<property name="errorfile">error.log</property>
+		<property name="pattern">%d [%16.16t] %-5p %c{1} - %m%n</property>
+	</properties>
+	
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${pattern}" />
+		</Console>
+		
+		<RollingFile name="ErrorFile" fileName="${logDir}/${errorfile}" filePattern="${logDir}/${errorfile}-%d{MM-dd-yyyy}-%i.log.gz">
+			<ThresholdFilter onMismatch="DENY" onMatch="ACCEPT" level="WARN"/>
+			<PatternLayout pattern="${pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="ServerFile" fileName="${logDir}/${serverfile}" filePattern="${logDir}/${serverfile}-%d{MM-dd-yyyy}-%i.log.gz">
+			<ThresholdFilter onMismatch="DENY" onMatch="ACCEPT" level="ALL"/>
+			<PatternLayout pattern="${pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+	</appenders>
+	<loggers>
+		<logger name="com.peaksmartphone.manpowerplanner" level="debug" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="ServerFile" />
+			<appender-ref ref="ErrorFile" />
+		</logger>
+		<logger name="org.hibernate" level="info" additivity="false">
+		    <appender-ref ref="Console" />
+			<appender-ref ref="ServerFile" />
+			<appender-ref ref="ErrorFile" />
+		</logger>
+		<root level="warn">
+			<appender-ref ref="Console" />
+			<appender-ref ref="ServerFile" />
+			<appender-ref ref="ErrorFile" />
+		</root>
+	</loggers>
+</configuration>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2015 11:31:05 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.peaksmartphone.manpowerplanner.core.data.DailyScheduleDef" table="DailyScheduleDef" mutable="true">
+        <id name="mId" access="field" column="DSCHEDDEF_ID" type="java.lang.String" length="36">
+       		<generator class="assigned"/>
+       </id>
+       <version name="mVersion" column="VERSION" access="field" unsaved-value="null" />
+       <property name="mName" column="DSCHED_NAME" length="50" access="field" type="java.lang.String" />
+       <property name="mIsRestDay" column="IS_RESTDAY" access="field" type="boolean" />
+       <property name="mMaxEmployeeAmount" column="MAX_EMPLOYEE_AMOUNT" access="field" type="integer" />
+       <property name="mSortIndex" column="SORTINDEX" access="field" type="integer" />
+    </class>
+</hibernate-mapping>

@@ -20,62 +20,74 @@ import java.util.Set;
  */
 public class DailyScheduleInst extends AbstractObject
 {
-	/**
+  /**
 	 * 
 	 */
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
     
-	private final DailyScheduleDef mDailyScheduleDef;
+	private final String mDailyScheduleDefId;
 	private final Date mScheduledDate;
-	private final Set<Employee> mAssignedEmployee;
+	private final Set<Employee> mAssignedEmployees;
 	
-	/**
-	 * 
-	 * @param pId
-	 * @param pVersion
-	 * @param pDailyScheduleDef
-	 * @param pScheduledDate
-	 * @param pAssignedEmployee
-	 */
-	public DailyScheduleInst(String pId, Integer pVersion,
-            DailyScheduleDef pDailyScheduleDef, Date pScheduledDate,
-            Set<Employee> pAssignedEmployee)
+  /**
+   * @param pId
+   * @param pVersion
+   * @param pDailyScheduleDefId
+   * @param pScheduledDate
+   * @param pAssignedEmployees
+   */
+  public DailyScheduleInst(String pId, Integer pVersion, String pDailyScheduleDefId, Date pScheduledDate,
+      Set<Employee> pAssignedEmployees)
+  {
+    super(pId, pVersion);
+    mDailyScheduleDefId = pDailyScheduleDefId;
+    mScheduledDate = pScheduledDate;
+    
+    if (pAssignedEmployees == null)
     {
-	    super(pId, pVersion);
-	    mDailyScheduleDef = pDailyScheduleDef;
-	    mScheduledDate = pScheduledDate;
-	    
-	    if (pAssignedEmployee == null)
-	    {
-	    	mAssignedEmployee = new HashSet<Employee>();
-	    }
-	    else
-	    {
-	    	mAssignedEmployee = pAssignedEmployee;
-	    }
+      mAssignedEmployees = new HashSet<Employee>();
     }
+    else
+    {
+      mAssignedEmployees = pAssignedEmployees;
+    }
+  }
+  
+  /**
+   * 
+   * @param pDailyScheduleDefId
+   * @param pScheduledDate
+   * @param pAssignedEmployee
+   * @return
+   */
+  public static DailyScheduleInst newInstance(String pDailyScheduleDefId, Date pScheduledDate,
+      Set<Employee> pAssignedEmployee)
+  {
+    return new DailyScheduleInst(IdGenerator.createId(), null, pDailyScheduleDefId, pScheduledDate, pAssignedEmployee);
+  }
 
-	/**
-	 * @return the dailyScheduleDef
-	 */
-	public DailyScheduleDef getDailyScheduleDef()
-	{
-		return mDailyScheduleDef;
-	}
+  /**
+   * @return the dailyScheduleDefId
+   */
+  public String getDailyScheduleDefId()
+  {
+    return mDailyScheduleDefId;
+  }
 
-	/**
-	 * @return the scheduledDate
-	 */
-	public Date getScheduledDate()
-	{
-		return mScheduledDate;
-	}
+  /**
+   * @return the scheduledDate
+   */
+  public Date getScheduledDate()
+  {
+    return mScheduledDate;
+  }
 
-	/**
-	 * @return the assignedEmployee
-	 */
-	public Set<Employee> getAssignedEmployee()
-	{
-		return mAssignedEmployee;
-	}
+  /**
+   * @return the assignedEmployee
+   */
+  public Set<Employee> getAssignedEmployees()
+  {
+    return mAssignedEmployees;
+  }
+	
 }

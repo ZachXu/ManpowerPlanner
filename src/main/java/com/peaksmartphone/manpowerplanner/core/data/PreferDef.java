@@ -16,7 +16,11 @@ import java.util.Date;
  */
 public class PreferDef extends AbstractObject
 {
-	private final Employee mEmployee;
+	/**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  private final Employee mEmployee;
 	private final DailyScheduleDef mDailyScheduleDef;
 	private final Date mPreferDate;
 	
@@ -30,12 +34,25 @@ public class PreferDef extends AbstractObject
 	 */
 	public PreferDef(String pId, Integer pVersion, Employee pEmployee,
             DailyScheduleDef pDailyScheduleDef, Date pPreferDate)
-    {
-	    super(pId, pVersion);
-	    mEmployee = pEmployee;
-	    mDailyScheduleDef = pDailyScheduleDef;
-	    mPreferDate = pPreferDate;
-    }
+  {
+    super(pId, pVersion);
+    mEmployee = pEmployee;
+    mDailyScheduleDef = pDailyScheduleDef;
+    mPreferDate = pPreferDate;
+  }
+	
+	/**
+	 * new Instance
+	 * @param pEmployee
+	 * @param pDailyScheduleDef
+	 * @param pPreferDate
+	 * @return
+	 */
+	public static PreferDef newInstance(Employee pEmployee,
+            DailyScheduleDef pDailyScheduleDef, Date pPreferDate)
+  {
+	  return new PreferDef(IdGenerator.createId(), null, pEmployee, pDailyScheduleDef, pPreferDate);
+  }
 
 	/**
 	 * @return the employee

@@ -17,28 +17,67 @@ public class Employee extends AbstractObject
 	/**
 	 * 
 	 */
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private final String mEmplyeeName;
+	private final String mEmployeeName;
+	private final int mMaxOccurInWeek;
 	
-	public final static Employee EMPTY_OBJECT = new Employee(null, null, null);
+	public final static Employee EMPTY_OBJECT = new Employee(null, null, null, 5);
 
 	/**
-	 * 
-	 * @param pId
-	 * @param pVersion
-	 * @param pEmplyeeName
-	 */
-	private Employee(String pId, Integer pVersion, String pEmplyeeName)
+   * @param pId
+   * @param pVersion
+   * @param pEmployeeName
+   * @param pMaxOccurInWeek
+   */
+  private Employee(String pId, Integer pVersion, String pEmployeeName, int pMaxOccurInWeek)
+  {
+    super(pId, pVersion);
+    mEmployeeName = pEmployeeName;
+    mMaxOccurInWeek = pMaxOccurInWeek;
+  }
+  
+  /**
+   * 
+   * @param pEmployeeName
+   * @param pMaxOccurInWeek
+   * @return
+   */
+  public static Employee newInstance(String pEmployeeName, int pMaxOccurInWeek)
+  {
+    return new Employee(IdGenerator.createId(), null, pEmployeeName, pMaxOccurInWeek);
+  }
+  
+  /**
+   * 
+   * @param pNullAbleValue
+   * @return
+   */
+  public static Employee getEmptyObjectOrValue(Employee pNullAbleValue)
+  {
+    Employee returnVal = EMPTY_OBJECT;
+    
+    if (pNullAbleValue != null)
     {
-	    super(pId, pVersion);
-	    mEmplyeeName = pEmplyeeName;
+       returnVal = pNullAbleValue;
     }
+    
+    return returnVal;
+  }
 
-	public String getEmplyeeName()
-	{
-		return mEmplyeeName;
-	}
-	
-	
+  /**
+   * @return the employeeName
+   */
+  public String getEmployeeName()
+  {
+    return mEmployeeName;
+  }
+
+  /**
+   * @return the maxOccurInWeek
+   */
+  public int getMaxOccurInWeek()
+  {
+    return mMaxOccurInWeek;
+  }
 }

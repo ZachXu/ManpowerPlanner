@@ -14,9 +14,13 @@ package com.peaksmartphone.manpowerplanner.core.data;
  */
 public class DailyScheduleDef extends AbstractObject
 {
-	private final String mName;
+	/**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  private final String mName;
 	private final boolean mIsRestDay;
-	private final int mEmployeeAmount;
+	private final int mMaxEmployeeAmount;
 	private final int mSortIndex;
 	
 	/**
@@ -25,18 +29,33 @@ public class DailyScheduleDef extends AbstractObject
 	 * @param pVersion
 	 * @param pName
 	 * @param pIsRestDay
-	 * @param pEmployeeAmount
+	 * @param pMaxEmployeeAmount
 	 * @param pSortIndex
 	 */
 	public DailyScheduleDef(String pId, Integer pVersion, String pName,
-            boolean pIsRestDay, int pEmployeeAmount, int pSortIndex)
-    {
-	    super(pId, pVersion);
-	    mName = pName;
-	    mIsRestDay = pIsRestDay;
-	    mEmployeeAmount = pEmployeeAmount;
-	    mSortIndex = pSortIndex;
-    }
+            boolean pIsRestDay, int pMaxEmployeeAmount, int pSortIndex)
+  {
+    super(pId, pVersion);
+    mName = pName;
+    mIsRestDay = pIsRestDay;
+    mMaxEmployeeAmount = pMaxEmployeeAmount;
+    mSortIndex = pSortIndex;
+  }
+	
+	/**
+	 * 
+	 * @param pName
+	 * @param pIsRestDay
+	 * @param pMaxEmployeeAmount
+	 * @param pSortIndex
+	 * @return
+	 */
+	public static DailyScheduleDef newInstance(String pName,
+      boolean pIsRestDay, int pMaxEmployeeAmount, int pSortIndex)
+  {
+	  return new DailyScheduleDef(IdGenerator.createId(), null, 
+	      pName, pIsRestDay, pMaxEmployeeAmount, pSortIndex);
+  }
 
 	/**
 	 * @return the name
@@ -59,7 +78,7 @@ public class DailyScheduleDef extends AbstractObject
 	 */
 	public int getEmployeeAmount()
 	{
-		return mEmployeeAmount;
+		return mMaxEmployeeAmount;
 	}
 
 	/**

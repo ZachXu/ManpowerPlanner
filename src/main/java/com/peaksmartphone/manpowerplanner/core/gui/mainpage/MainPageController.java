@@ -3,6 +3,8 @@ package com.peaksmartphone.manpowerplanner.core.gui.mainpage;
 import java.util.Locale;
 
 import com.peaksmartphone.manpowerplanner.core.MPPManager;
+import com.peaksmartphone.manpowerplanner.core.gui.dailyschedule.DailyScheduleDefManageController;
+import com.peaksmartphone.manpowerplanner.core.gui.employee.EmployeeManageController;
 import com.peaksmartphone.manpowerplanner.utils.ResourceBundle;
 
 /**
@@ -56,8 +58,10 @@ public class MainPageController
    */
   public void openEmployeeManagement()
   {
-    // TODO Auto-generated method stub
-    
+    final EmployeeManageController empController = new EmployeeManageController();
+    mView.getTabbedPane().addTab(
+        ResourceBundle.getString(MainPageController.class.getName() + ".TAB_EMPLOYEE"), 
+        empController.getView());
   }
 
   /**
@@ -65,8 +69,10 @@ public class MainPageController
    */
   public void openDailyScheduleDefManagement()
   {
-    // TODO Auto-generated method stub
-    
+    final DailyScheduleDefManageController controller = new DailyScheduleDefManageController();
+    mView.getTabbedPane().addTab(
+        ResourceBundle.getString(MainPageController.class.getName() + ".TAB_DAILYDEF"), 
+        controller.getView());
   }
 
   /**

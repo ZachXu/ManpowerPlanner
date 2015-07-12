@@ -24,7 +24,6 @@ public abstract class AbstractObject implements Serializable
 	protected final String mId;
 	protected final Integer mVersion;
 	
-	
   public AbstractObject(String pId, Integer pVersion)
   {
     super();

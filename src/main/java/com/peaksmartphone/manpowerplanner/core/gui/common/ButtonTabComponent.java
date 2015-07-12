@@ -1,4 +1,4 @@
-package com.peaksmartphone.manpowerplanner.core.gui.common.tab;
+package com.peaksmartphone.manpowerplanner.core.gui.common;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

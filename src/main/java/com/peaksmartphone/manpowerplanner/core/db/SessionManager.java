@@ -216,6 +216,7 @@ public class SessionManager
     } 
     catch (HibernateException e)
     {
+      session.getTransaction().rollback();
       LOG.error("Couldn't execute commit!", e);
     }
   }

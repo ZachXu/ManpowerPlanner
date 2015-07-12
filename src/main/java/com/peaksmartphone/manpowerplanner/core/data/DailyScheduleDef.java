@@ -18,10 +18,20 @@ public class DailyScheduleDef extends AbstractObject
    * 
    */
   private static final long serialVersionUID = 1L;
+  
+  private static final int DEFAULT_MAXEMPLOYEEAMOUNT = 3;
+  
   private final String mName;
 	private final boolean mIsRestDay;
 	private final int mMaxEmployeeAmount;
 	private final int mSortIndex;
+	
+	public static DailyScheduleDef EMPTY_OBJECT = new DailyScheduleDef();
+	
+	public DailyScheduleDef()
+	{
+	  this(null, null, null, false, DEFAULT_MAXEMPLOYEEAMOUNT, Integer.MAX_VALUE);
+	}
 	
 	/**
 	 * 
@@ -41,6 +51,16 @@ public class DailyScheduleDef extends AbstractObject
     mMaxEmployeeAmount = pMaxEmployeeAmount;
     mSortIndex = pSortIndex;
   }
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static DailyScheduleDef newInstance()
+	{
+	  return new DailyScheduleDef(IdGenerator.createId(), null, null, false, 
+	      DEFAULT_MAXEMPLOYEEAMOUNT, Integer.MAX_VALUE);
+	}
 	
 	/**
 	 * 
@@ -88,4 +108,20 @@ public class DailyScheduleDef extends AbstractObject
 	{
 		return mSortIndex;
 	}
+	
+	/**
+	 * 
+	 * @param pId
+	 * @param pVersion
+	 * @param pName
+	 * @param pIsRestDay
+	 * @param pMaxEmployeeAmount
+	 * @param pSortIndex
+	 * @return
+	 */
+  public static DailyScheduleDef valueOf(String pId, Integer pVersion, String pName, boolean pIsRestDay,
+      int pMaxEmployeeAmount, int pSortIndex)
+  {
+    return new DailyScheduleDef(pId, pVersion, pName, pIsRestDay, pMaxEmployeeAmount, pSortIndex);
+  }
 }

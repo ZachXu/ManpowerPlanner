@@ -13,7 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import com.peaksmartphone.manpowerplanner.core.gui.common.tab.ClosableTabbedPane;
+import com.peaksmartphone.manpowerplanner.core.gui.common.ClosableTabbedPane;
 import com.peaksmartphone.manpowerplanner.utils.ResourceBundle;
 
 /**
@@ -79,6 +79,8 @@ public class MainPageView extends JFrame
     setLayout(new BorderLayout());
     
     initMenu();
+    
+    add(mTabbedPane, BorderLayout.CENTER);
   }
   
   /**

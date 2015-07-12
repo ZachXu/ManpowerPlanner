@@ -18,12 +18,19 @@ public class Employee extends AbstractObject
 	 * 
 	 */
   private static final long serialVersionUID = 1L;
-
+  
+  private final static int NORMAL_MAX_OCCURINWEEK = 5;
+  
 	private final String mEmployeeName;
 	private final int mMaxOccurInWeek;
 	
-	public final static Employee EMPTY_OBJECT = new Employee(null, null, null, 5);
-
+	public final static Employee EMPTY_OBJECT = new Employee();
+	
+	private Employee()
+	{
+	  this(null, null, null, NORMAL_MAX_OCCURINWEEK);
+	}
+	
 	/**
    * @param pId
    * @param pVersion
@@ -35,6 +42,30 @@ public class Employee extends AbstractObject
     super(pId, pVersion);
     mEmployeeName = pEmployeeName;
     mMaxOccurInWeek = pMaxOccurInWeek;
+  }
+  
+  /**
+   * 
+   * @param pId
+   * @param pVersion
+   * @param pEmployeeName
+   * @param pMaxOccurInWeek
+   * @return
+   */
+  public static Employee valueOf(String pId, Integer pVersion, String pEmployeeName, int pMaxOccurInWeek)
+  {
+    return new Employee(pId, pVersion, pEmployeeName, pMaxOccurInWeek);
+  }
+  
+  /**
+   * 
+   * @param pEmployeeName
+   * @param pMaxOccurInWeek
+   * @return
+   */
+  public static Employee newInstance()
+  {
+    return new Employee(IdGenerator.createId(), null, null, NORMAL_MAX_OCCURINWEEK);
   }
   
   /**

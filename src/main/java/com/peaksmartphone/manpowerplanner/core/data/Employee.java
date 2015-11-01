@@ -111,4 +111,15 @@ public class Employee extends AbstractObject
   {
     return mMaxOccurInWeek;
   }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString()
+  {
+    return mEmployeeName;
+  }
+  
+  
 }

@@ -31,7 +31,7 @@ public class DailyScheduleDefService
   /**
    * 
    */
-  public DailyScheduleDefService()
+  private DailyScheduleDefService()
   {
     mDAO = new DailyScheduleDefDAO(MPPManager.getInstance().getSessionManager());
   }

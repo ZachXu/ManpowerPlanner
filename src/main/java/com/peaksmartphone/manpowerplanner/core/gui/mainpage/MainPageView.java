@@ -43,6 +43,7 @@ public class MainPageView extends JFrame
   private final JMenuBar mMainMenubar = new JMenuBar();
   
   private final JMenu mMenuWorkCalendar = new JMenu();
+  private final JMenuItem mMenuItemWorkCalendar = new JMenuItem();
   
   private final JMenu mMenuAdmin = new JMenu();
   private final JMenuItem mMenuItemEmpManage = new JMenuItem();
@@ -88,7 +89,7 @@ public class MainPageView extends JFrame
    */
   private void initMenu()
   {
-    mMenuWorkCalendar.addActionListener(new ActionListener()
+    mMenuItemWorkCalendar.addActionListener(new ActionListener()
     {
       
       @Override
@@ -97,6 +98,8 @@ public class MainPageView extends JFrame
         mController.openWorkCalendar();
       }
     });
+    
+    mMenuWorkCalendar.add(mMenuItemWorkCalendar);
     
     mMainMenubar.add(mMenuWorkCalendar);
     
@@ -193,6 +196,7 @@ public class MainPageView extends JFrame
   public void updateMenuText()
   {
     mMenuWorkCalendar.setText(ResourceBundle.getString(MainPageView.class.getName() + ".MENU_WORKCALENDAR"));
+    mMenuItemWorkCalendar.setText(ResourceBundle.getString(MainPageView.class.getName() + ".MENUITEM_WORKCALENDAR"));
     
     mMenuAdmin.setText(ResourceBundle.getString(MainPageView.class.getName() + ".MENU_ADMINISTRATOR"));
     mMenuItemEmpManage.setText(ResourceBundle.getString(MainPageView.class.getName() + ".MENUITEM_EMPLOYMANAGE"));

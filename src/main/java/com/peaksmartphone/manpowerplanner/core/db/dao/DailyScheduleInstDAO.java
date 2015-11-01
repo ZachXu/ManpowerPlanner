@@ -1,10 +1,10 @@
 package com.peaksmartphone.manpowerplanner.core.db.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 
-import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleDef;
 import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst;
 import com.peaksmartphone.manpowerplanner.core.db.SessionManager;
 import com.peaksmartphone.manpowerplanner.utils.SerialClone;
@@ -90,6 +90,26 @@ public class DailyScheduleInstDAO extends AbstractDAO<DailyScheduleInst>
     }
     
     return retVal;
+  }
+  
+  /**
+   * 
+   * @param pBegin begin date for the querying
+    * @param pEnd end date for the querying
+   * @return list of {@link DailyScheduleInst} result
+   */
+  public List<DailyScheduleInst> getDailyScheduleInstInPeriod(Date pBegin, Date pEnd)
+  {
+    String hql = "from DailyScheduleInst di "
+        + " where di.mScheduledDate >= :begindate "
+        + " and di.mScheduledDate <= :enddate";
+    
+    Query query = mSessionManager.createQuery(hql);
+    
+    query.setDate("begindate", pBegin);
+    query.setDate("enddate", pEnd);
+    
+    return query.list();
   }
 
 }

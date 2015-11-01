@@ -24,11 +24,11 @@ public class StandardListTable extends JXTable
 {
 
   /**
-   * @param pDm
+   * @param pTableModel
    */
-  public StandardListTable(TableModel pDm)
+  public StandardListTable(TableModel pTableModel)
   {
-    super(pDm);
+    super(pTableModel);
     
     addHighlighter(HighlighterFactory.createAlternateStriping());
   }

@@ -27,7 +27,7 @@ public class StandardEditToolbar extends JPanel
   private static final long serialVersionUID = 1;
   protected final StandardEditToolbarActionListener mController;
   private final JButton mIconBtnSave =  GUIFactory.createIconBtnSave();
-  private final JButton mIconBtnCancel = GUIFactory.createIconBtnCancel();
+  private final JButton mIconBtnCancel = GUIFactory.createIconButtonCancel();
   private final JButton mIconBtnNew = GUIFactory.createIconBtnAdd();
   private final JButton mIconBtnDelete = GUIFactory.createIconBtnDelete();
   private final JButton mIconBtnEdit = GUIFactory.createIconBtnEdit();

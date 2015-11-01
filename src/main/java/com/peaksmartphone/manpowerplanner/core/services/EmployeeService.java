@@ -27,7 +27,7 @@ public class EmployeeService
 
   /**
    */
-  public EmployeeService()
+  private EmployeeService()
   {
     mDAO = new EmployeeDAO(MPPManager.getInstance().getSessionManager());
   }

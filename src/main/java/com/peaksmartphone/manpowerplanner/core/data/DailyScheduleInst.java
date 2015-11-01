@@ -29,6 +29,13 @@ public class DailyScheduleInst extends AbstractObject
 	private final Date mScheduledDate;
 	private final Set<Employee> mAssignedEmployees;
 	
+	public static final DailyScheduleInst EMPTY_OBJECT = new DailyScheduleInst();
+	
+	public DailyScheduleInst()
+	{
+	  this(null, null, null, null, new HashSet<Employee>());
+	}
+	
   /**
    * @param pId
    * @param pVersion
@@ -88,6 +95,16 @@ public class DailyScheduleInst extends AbstractObject
   public Set<Employee> getAssignedEmployees()
   {
     return mAssignedEmployees;
+  }
+  
+  /**
+   * 
+   * @param pAssignedEmployees
+   * @return
+   */
+  public DailyScheduleInst setAssignedEmployees(Set<Employee> pAssignedEmployees)
+  {
+    return new DailyScheduleInst(mId, mVersion, mDailyScheduleDefId, mScheduledDate, pAssignedEmployees);
   }
 	
 }

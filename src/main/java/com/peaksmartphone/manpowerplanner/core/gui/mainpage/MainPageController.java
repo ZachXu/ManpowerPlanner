@@ -5,6 +5,7 @@ import java.util.Locale;
 import com.peaksmartphone.manpowerplanner.core.MPPManager;
 import com.peaksmartphone.manpowerplanner.core.gui.dailyschedule.DailyScheduleDefManageController;
 import com.peaksmartphone.manpowerplanner.core.gui.employee.EmployeeManageController;
+import com.peaksmartphone.manpowerplanner.core.gui.weeklyscheduleinst.WeeklyScheduleInstController;
 import com.peaksmartphone.manpowerplanner.utils.ResourceBundle;
 
 /**
@@ -49,8 +50,10 @@ public class MainPageController
    */
   public void openWorkCalendar()
   {
-    // TODO Auto-generated method stub
-    
+    final WeeklyScheduleInstController weeklyController = new WeeklyScheduleInstController();
+    mView.getTabbedPane().addTab(
+        ResourceBundle.getString(MainPageController.class.getName() + ".TAB_WORKCALENDAR"), 
+        weeklyController.getView());
   }
 
   /**

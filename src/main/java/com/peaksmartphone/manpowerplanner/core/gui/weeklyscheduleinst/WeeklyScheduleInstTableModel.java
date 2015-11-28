@@ -160,5 +160,16 @@ public class WeeklyScheduleInstTableModel extends AbstractTableModel
     
     return rowKey.getTime();
   }
+  
+  /**
+   * replace data
+   * @param pRowDate
+   * @param pColumnDef
+   * @param pReplaceDailyScheduleInst
+   */
+  public void replaceDailyScheduleInst(Date pRowDate, DailyScheduleDef pColumnDef, DailyScheduleInst pReplaceDailyScheduleInst)
+  {
+    mDataTable.put(pRowDate, pColumnDef, pReplaceDailyScheduleInst);
+  }
 
 }

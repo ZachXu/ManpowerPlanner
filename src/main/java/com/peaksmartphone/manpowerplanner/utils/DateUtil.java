@@ -1,5 +1,6 @@
 package com.peaksmartphone.manpowerplanner.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,7 +25,10 @@ public class DateUtil
   public final static long MINUTE = SECOND * 60;
   public final static long HOUR = MINUTE * 60;
   public final static long DAY = HOUR * 24;
+  public final static long WEEK = DAY * 7;
   public final static long MONTH = DAY * 30;
+  
+  public static final SimpleDateFormat SIMPLEDATEFORMAT = new SimpleDateFormat("YYYY.MM.dd");
   
   /**
    * get a Calendar instance only contains Date

@@ -159,6 +159,28 @@ public class GUIFactory
                 "/com/peaksmartphone/manpowerplanner/core/gui/images/cell_edit.png")));
   }
   
+  /**
+   * @return
+   */
+  public static JButton createIconBtnNext()
+  {
+    return createIconButton(
+        new ImageIcon(
+            GUIFactory.class.getResource(
+                "/com/peaksmartphone/manpowerplanner/core/gui/images/Button_Next.png")));
+  }
+  
+  /**
+   * @return
+   */
+  public static JButton createIconBtnPrevious()
+  {
+    return createIconButton(
+        new ImageIcon(
+            GUIFactory.class.getResource(
+                "/com/peaksmartphone/manpowerplanner/core/gui/images/Button_Previous.png")));
+  }
+  
   public static JButton createIconButton(ImageIcon pImageIcon)
   {
     return createIconButton(pImageIcon, true);

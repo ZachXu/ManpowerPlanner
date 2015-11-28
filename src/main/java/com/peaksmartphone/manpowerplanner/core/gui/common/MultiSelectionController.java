@@ -94,7 +94,7 @@ public class MultiSelectionController <T extends Object>
     
     mListDestination.setModel(mListModelDestination);
     mListSource.setModel(mListModelSource);
-
+    
     setAvailableItems(pAvailableItems);
     setSelectedItems(pSelectedItems);
     init();
@@ -413,6 +413,7 @@ public class MultiSelectionController <T extends Object>
     final JDialog dialog = new JDialog(pOwner);
     dialog.setModal(true);
     dialog.setLocation(pPoint);
+    dialog.setSize(new Dimension(800, 600));
     
     JPanel contentPanel = new JPanel(new BorderLayout());
     
@@ -449,7 +450,6 @@ public class MultiSelectionController <T extends Object>
     });
     
     dialog.setContentPane(contentPanel);
-    dialog.pack();
     dialog.setVisible(true);
     
     return selectedList;

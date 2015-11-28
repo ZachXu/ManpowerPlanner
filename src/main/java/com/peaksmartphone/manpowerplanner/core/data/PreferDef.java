@@ -24,6 +24,11 @@ public class PreferDef extends AbstractObject
 	private final DailyScheduleDef mDailyScheduleDef;
 	private final Date mPreferDate;
 	
+	public PreferDef()
+	{
+	  this(null, null, null, null, null);
+	}
+	
 	/**
 	 * 
 	 * @param pId

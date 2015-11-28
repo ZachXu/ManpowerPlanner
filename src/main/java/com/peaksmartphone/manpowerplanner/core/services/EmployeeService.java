@@ -1,5 +1,6 @@
 package com.peaksmartphone.manpowerplanner.core.services;
 
+import java.util.Date;
 import java.util.List;
 
 import com.peaksmartphone.manpowerplanner.core.MPPManager;
@@ -89,4 +90,14 @@ public class EmployeeService
     return mDAO.saveData(pData);
   }
   
+  /**
+   * 
+   * @param pDate
+   * @param pDailyScheduleDefId
+   * @return
+   */
+  public List<Employee> getAvaiableEmployeeList(Date pDate, String pDailyScheduleDefId)
+  {
+    return mDAO.getAvaiableEmployeeList(pDate, pDailyScheduleDefId);
+  }
 }

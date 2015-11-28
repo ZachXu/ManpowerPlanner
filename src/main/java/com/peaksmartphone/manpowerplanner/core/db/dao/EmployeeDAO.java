@@ -1,9 +1,11 @@
 package com.peaksmartphone.manpowerplanner.core.db.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 
+import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst;
 import com.peaksmartphone.manpowerplanner.core.data.Employee;
 import com.peaksmartphone.manpowerplanner.core.db.SessionManager;
 import com.peaksmartphone.manpowerplanner.utils.SerialClone;
@@ -98,5 +100,27 @@ public class EmployeeDAO extends AbstractDAO<Employee>
   public void deleteData(String pId)
   {
     mSessionManager.delete(getData(pId));
+  }
+  
+  /**
+   * 
+   * @param pDate
+   * @param pDailyScheduleDefId
+   * all avaiable Employee list for date and dailyScheduleDefId
+   */
+  public List<Employee> getAvaiableEmployeeList(Date pDate, String pDailyScheduleDefId)
+  {
+    String hql = "from " + Employee.class.getName() + " emp "
+               + " where emp.mId not in "
+               + " (select assignEmp.mId " 
+               + " from " + DailyScheduleInst.class.getName() + " dsi " 
+               + " left join dsi.mAssignedEmployees assignEmp "
+               + " where dsi.mScheduledDate = :mScheduledDate and dsi.mDailyScheduleDefId <> :mDailyScheduleDefId)";
+  
+    Query query = mSessionManager.createQuery(hql);
+    query.setDate("mScheduledDate", pDate);
+    query.setString("mDailyScheduleDefId", pDailyScheduleDefId);
+
+    return query.list();
   }
 }

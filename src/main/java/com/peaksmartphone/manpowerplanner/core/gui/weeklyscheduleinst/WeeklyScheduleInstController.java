@@ -8,6 +8,7 @@ import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleDef;
 import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst;
 import com.peaksmartphone.manpowerplanner.core.services.DailyScheduleDefService;
 import com.peaksmartphone.manpowerplanner.core.services.DailyScheduleInstService;
+import com.peaksmartphone.manpowerplanner.utils.DateUtil;
 
 /**
  * <p> Title: {@link WeeklyScheduleInstController} </p>
@@ -69,6 +70,8 @@ public class WeeklyScheduleInstController
       mDataTable = mServiceDailyScheduleInst.getDailyScheduleInstsInPeriod(startdate, enddate);
       
       mWeeklyScheduleInstTM.refresh(startdate, mDataTable);
+      
+      mView.setPeriodDisplay(weekdatelist);
     }
   }
 
@@ -78,6 +81,34 @@ public class WeeklyScheduleInstController
   public WeeklyScheduleInstView getView()
   {
     return mView;
+  }
+
+  /**
+   * 
+   */
+  public void onNext()
+  {
+    Date currentDate = mWeeklyRowHeaderTM.getStartWeekDate();
+    
+    currentDate = new Date(currentDate.getTime() + DateUtil.WEEK);
+    
+    mWeeklyRowHeaderTM.refresh(currentDate);
+    
+    loadData();
+  }
+
+  /**
+   * 
+   */
+  public void onPrevious()
+  {
+    Date currentDate = mWeeklyRowHeaderTM.getStartWeekDate();
+    
+    currentDate = new Date(currentDate.getTime() - DateUtil.WEEK);
+    
+    mWeeklyRowHeaderTM.refresh(currentDate);
+    
+    loadData();
   }
 
   

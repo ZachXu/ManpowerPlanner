@@ -4,7 +4,7 @@
 		<property name="logDir">logs</property>
 		<property name="serverfile">info.log</property>
 		<property name="errorfile">error.log</property>
-		<property name="pattern">%d [%16.16t] %-5p %c{1} - %m%n</property>
+		<property name="pattern">%d %-5p %c{1} - %m%n</property>
 	</properties>
 	
 	<appenders>

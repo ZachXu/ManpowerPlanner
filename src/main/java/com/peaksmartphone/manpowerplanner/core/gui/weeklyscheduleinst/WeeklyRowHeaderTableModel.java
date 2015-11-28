@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,7 +75,11 @@ public class WeeklyRowHeaderTableModel extends AbstractTableModel
       
       for (int i = 0; i < DAYS_IN_WEEK; i++)
       {
-        mCalendar.add(Calendar.DAY_OF_WEEK, i);
+        if (i > 0)
+        {
+          mCalendar.add(Calendar.DAY_OF_WEEK, 1);
+        }
+        
         Calendar valuecalendar = DateUtil.getCalendarOnlyWithDate(mCalendar.getTime());
         weekdayList.add(valuecalendar.getTime());
       }
@@ -161,6 +166,24 @@ public class WeeklyRowHeaderTableModel extends AbstractTableModel
   public List<Date> getWeekDayList()
   {
     return mWeekDayList;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Date getStartWeekDate()
+  {
+    Date retVal = new Date();
+    
+    Iterator<Date> itDate = mWeekDayList.iterator();
+    
+    if (itDate.hasNext())
+    {
+      retVal = itDate.next();
+    }
+    
+    return retVal;
   }
 
 }

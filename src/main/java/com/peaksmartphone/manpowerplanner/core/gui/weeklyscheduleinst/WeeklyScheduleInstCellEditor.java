@@ -59,10 +59,6 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
   
   private final Joiner mSplitJoiner = Joiner.on(",");
   
-  private DailyScheduleInst mCellDailySchedueInst;
-  
-  private final List<Employee> mAllEmployeeList;
-  
   private DailyScheduleInstService mServiceDailyScheduleInst = DailyScheduleInstService.getInstance();
    
   /**
@@ -71,7 +67,6 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
   public WeeklyScheduleInstCellEditor()
   {
     super();
-    mAllEmployeeList = EmployeeService.getInstance().getAllData();
   }
 
   /* (non-Javadoc)
@@ -99,13 +94,14 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
    */
   protected Component generateEditCellRenderEditor(final JTable pTable, final int pRow, final int pColumn)
   {
-    String value = "";
-    
     final List<Employee> selectedList = new ArrayList<Employee>();
     
     final WeeklyScheduleInstTableModel weeklyScheduleInstTableModel = (WeeklyScheduleInstTableModel)pTable.getModel();
     
     final Object tblvalue = weeklyScheduleInstTableModel.getValueAt(pRow, pColumn);
+
+    final JPanel panel = new JPanel(new BorderLayout());
+    final JLabel label = new JLabel();
     
     if (tblvalue instanceof DailyScheduleInst)
     {
@@ -113,25 +109,9 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
       
       if (data != null)
       {
-        mCellDailySchedueInst = data;
-        
-        List<String> strList = new ArrayList<String>();
-        
-        for (Employee assginedemployee : data.getAssignedEmployees())
-        {
-          strList.add(assginedemployee.getEmployeeName());
-        }
-        
-        selectedList.addAll(data.getAssignedEmployees());
-        
-        value = mSplitJoiner.join(strList);
+        initialValueData(selectedList, label, data);
       }
     }
-    
-    final JPanel panel = new JPanel(new BorderLayout());
-    final JLabel label = new JLabel();
-    label.setText(value);
-    label.setToolTipText(value);
     final JButton btnEdit = GUIFactory.createIconCellEditBtn();
     
     final JFrame owner = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, pTable);
@@ -142,34 +122,51 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
       @Override
       public void actionPerformed(ActionEvent pE)
       {
+        Date rowDate = weeklyScheduleInstTableModel.getRowDate(pRow);
+        
+        DailyScheduleDef columnDef = weeklyScheduleInstTableModel.getColumnDailyScheduleDef(pColumn);
+        
+        DailyScheduleInst dailyscheduleinst = null;
+        
+        Object objValue = weeklyScheduleInstTableModel.getValueAt(pRow, pColumn);
+        
+        if (objValue != null)
+        {
+          dailyscheduleinst = (DailyScheduleInst)objValue;
+        }  
+        
+        List<Employee> avaiableEmployeeList = EmployeeService.getInstance().getAvaiableEmployeeList(rowDate, columnDef.getId());
+        
         List<Employee> rsList = MultiSelectionController.openMultiSelectionDialog(owner, 
             btnEdit.getLocation(), 
-            mAllEmployeeList, 
+            avaiableEmployeeList, 
             selectedList);
         
         if (rsList != null && !rsList.isEmpty())
         {
           try
           {
-            if (mCellDailySchedueInst != null && !DailyScheduleInst.EMPTY_OBJECT.equals(mCellDailySchedueInst))
+            if (dailyscheduleinst != null && !DailyScheduleInst.EMPTY_OBJECT.equals(dailyscheduleinst))
             {
-              mCellDailySchedueInst = mCellDailySchedueInst.setAssignedEmployees(new HashSet<Employee>(rsList));
+              dailyscheduleinst = dailyscheduleinst.setAssignedEmployees(new HashSet<Employee>(rsList));
             }
             else
             {
-              Date rowDate = weeklyScheduleInstTableModel.getRowDate(pRow);
-              
-              DailyScheduleDef columnDef = weeklyScheduleInstTableModel.getColumnDailyScheduleDef(pColumn);
-              
-              mCellDailySchedueInst = DailyScheduleInst.newInstance(columnDef.getId(), 
+              dailyscheduleinst = DailyScheduleInst.newInstance(columnDef.getId(), 
                   rowDate, new HashSet<Employee>(rsList));
             }
             
-            mServiceDailyScheduleInst.saveData(mCellDailySchedueInst);
+            mServiceDailyScheduleInst.saveData(dailyscheduleinst);
             
             MPPManager.getInstance().getSessionManager().commit();
             
+            weeklyScheduleInstTableModel.replaceDailyScheduleInst(rowDate, columnDef, dailyscheduleinst);
+            
             weeklyScheduleInstTableModel.fireTableRowsUpdated(pRow, pRow);
+            
+            selectedList.clear();
+            initialValueData(selectedList, label, dailyscheduleinst);
+            
           }
           catch(Exception e)
           {
@@ -185,13 +182,37 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
     return panel;
   }
 
+  /**
+   * @param pSelectedList
+   * @param pLblTblCell
+   * @param pDaiyScheduleInst
+   */
+  protected void initialValueData(final List<Employee> pSelectedList, final JLabel pLblTblCell,
+      final DailyScheduleInst pDaiyScheduleInst)
+  {
+    String value = "";
+    
+    List<String> strList = new ArrayList<String>();
+    
+    for (Employee assginedemployee : pDaiyScheduleInst.getAssignedEmployees())
+    {
+      strList.add(assginedemployee.getEmployeeName());
+    }
+    
+    pSelectedList.addAll(pDaiyScheduleInst.getAssignedEmployees());
+    
+    value = mSplitJoiner.join(strList);
+    pLblTblCell.setText(value);
+    pLblTblCell.setToolTipText(value);
+  }
+
   /* (non-Javadoc)
    * @see javax.swing.CellEditor#getCellEditorValue()
    */
   @Override
   public Object getCellEditorValue()
   {
-    return mCellDailySchedueInst;
+    return null;
   }
 
 }

@@ -279,7 +279,12 @@ public class SessionManager
   public synchronized void rollback()
   {
     Session session = mSessionHolder.get();
-    session.getTransaction().rollback();
+    
+    if (session.getTransaction().isActive())
+    {
+      session.getTransaction().rollback();
+    }
+    
     mSessionHolder.newSession();
     
   }

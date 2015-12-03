@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 import com.peaksmartphone.manpowerplanner.core.gui.GUIFactory;
 import com.peaksmartphone.manpowerplanner.core.gui.common.rowheadertable.HeaderTableComponent;
@@ -46,6 +47,7 @@ public class WeeklyScheduleInstView extends JPanel
   
   private final JButton mIconBtnNext = GUIFactory.createIconBtnNext();
   private final JButton mIconBtnPrevious = GUIFactory.createIconBtnPrevious();
+  private final JButton mIconBtnExportExcel = GUIFactory.createIconBtnExcel();
   
   private final JLabel mLblDisplayPeriod = new JLabel();
   
@@ -86,10 +88,14 @@ public class WeeklyScheduleInstView extends JPanel
     topPnl.add(mIconBtnNext, 
         new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, 
             GridBagConstraints.WEST, GridBagConstraints.NONE, GUIFactory.COMPONENTS_INSETS, 0, 0));
+    
+    topPnl.add(mIconBtnExportExcel, 
+        new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0, 
+            GridBagConstraints.WEST, GridBagConstraints.NONE, GUIFactory.COMPONENTS_INSETS, 0, 0));
   
     mLblDisplayPeriod.setForeground(Color.BLUE);
     topPnl.add(mLblDisplayPeriod, 
-        new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0, 
+        new GridBagConstraints(3, 0, 1, 1, 1.0, 0.0, 
             GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, GUIFactory.COMPONENTS_INSETS, 0, 0));
   
     add(topPnl, BorderLayout.NORTH);
@@ -119,6 +125,16 @@ public class WeeklyScheduleInstView extends JPanel
         mController.onPrevious();
       }
     });
+    
+    mIconBtnExportExcel.addActionListener(new ActionListener()
+    {
+      
+      @Override
+      public void actionPerformed(ActionEvent pE)
+      {
+        mController.onExportExcel();
+      }
+    });
   }
 
   /**
@@ -132,4 +148,12 @@ public class WeeklyScheduleInstView extends JPanel
         DateUtil.SIMPLEDATEFORMAT.format(pWeekDayList.get(6))));
   }
   
+  /**
+   * 
+   * @return JTable
+   */
+  public JTable getStandardListTable()
+  {
+    return mHeaderTableView.getStandardListTable();
+  }
 }

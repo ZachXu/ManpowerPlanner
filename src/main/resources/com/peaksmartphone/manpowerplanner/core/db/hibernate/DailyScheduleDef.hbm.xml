@@ -10,7 +10,7 @@
        <version name="mVersion" column="VERSION" access="field" unsaved-value="null" />
        <property name="mName" column="DSCHED_NAME" length="50" access="field" type="java.lang.String" />
        <property name="mIsRestDay" column="IS_RESTDAY" access="field" type="boolean" />
-       <property name="mMaxEmployeeAmount" column="MAX_EMPLOYEE_AMOUNT" access="field" type="integer" />
-       <property name="mSortIndex" column="SORTINDEX" access="field" type="integer" />
+       <property name="mMaxEmployeeAmount" column="MAX_EMPLOYEE_AMOUNT" access="field" type="java.lang.Integer" />
+       <property name="mSortIndex" column="SORTINDEX" access="field" type="java.lang.Integer" />
     </class>
 </hibernate-mapping>

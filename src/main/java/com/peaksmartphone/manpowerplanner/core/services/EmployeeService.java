@@ -94,10 +94,12 @@ public class EmployeeService
    * 
    * @param pDate
    * @param pDailyScheduleDefId
+   * @param pStartDate date of starting in this week
+   * @param pEndDate date of ending in this week
    * @return
    */
-  public List<Employee> getAvaiableEmployeeList(Date pDate, String pDailyScheduleDefId)
+  public List<Employee> getAvaiableEmployeeList(Date pDate, String pDailyScheduleDefId, Date pStartDate, Date pEndDate)
   {
-    return mDAO.getAvaiableEmployeeList(pDate, pDailyScheduleDefId);
+    return mDAO.getAvaiableEmployeeList(pDate, pDailyScheduleDefId, pStartDate, pEndDate);
   }
 }

@@ -75,12 +75,14 @@ public class MultiSelectionController <T extends Object>
 
   private final List<T> mAvailableItems = new ArrayList<T>();
   
+  private final int mMaxSelectedData;
+  
   /**
    * Standard Constructor
    */
   public MultiSelectionController()
   {
-    this(Collections.<T>emptyList(), Collections.<T>emptyList());
+    this(Collections.<T>emptyList(), Collections.<T>emptyList(), Integer.MAX_VALUE);
   }
   
   /**
@@ -88,12 +90,14 @@ public class MultiSelectionController <T extends Object>
    * @param pAvailableItems List with available items
    * @param pSelectedItems List with selected items
    */
-  public MultiSelectionController(Collection<T> pAvailableItems, Collection<T> pSelectedItems)
+  public MultiSelectionController(Collection<T> pAvailableItems, Collection<T> pSelectedItems, int pMaxSelectedData)
   {
     super();
     
     mListDestination.setModel(mListModelDestination);
     mListSource.setModel(mListModelSource);
+    
+    mMaxSelectedData = pMaxSelectedData;
     
     setAvailableItems(pAvailableItems);
     setSelectedItems(pSelectedItems);
@@ -296,8 +300,11 @@ public class MultiSelectionController <T extends Object>
   {
     if (mListModelSource.getIndexOf(pItem) > -1)
     {
-      mListModelSource.removeElement(pItem);
-      addElementInOrder(mListModelDestination, pItem);
+      if (mListModelDestination.getSize() < mMaxSelectedData)
+      {
+        mListModelSource.removeElement(pItem);
+        addElementInOrder(mListModelDestination, pItem);
+      }
     }
   }
   
@@ -403,12 +410,13 @@ public class MultiSelectionController <T extends Object>
   
   public static <T> List<T> openMultiSelectionDialog(JFrame pOwner, Point pPoint, 
       List<T> pAvaiableList,
-      List<T> pSelectedList)
+      List<T> pSelectedList, 
+      int pMaxSelectedData)
   {
     final List<T> selectedList = new ArrayList<T>();
     
     final MultiSelectionController<T> multiSelController = 
-        new MultiSelectionController<T>(pAvaiableList, pSelectedList);
+        new MultiSelectionController<T>(pAvaiableList, pSelectedList, pMaxSelectedData);
     
     final JDialog dialog = new JDialog(pOwner);
     dialog.setModal(true);
@@ -479,7 +487,7 @@ public class MultiSelectionController <T extends Object>
       public void actionPerformed(ActionEvent pE)
       {
         List<String> selectList = MultiSelectionController.openMultiSelectionDialog(frame, 
-            btn.getLocation(), l, Arrays.asList("zwei"));
+            btn.getLocation(), l, Arrays.asList("zwei"), 2);
         
         System.out.println(join.join(selectList));
       }

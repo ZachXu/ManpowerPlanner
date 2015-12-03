@@ -1,6 +1,8 @@
 package com.peaksmartphone.manpowerplanner.core.gui.dailyschedule;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleDef;
 import com.peaksmartphone.manpowerplanner.core.gui.common.table.AbstractListTableModel;
@@ -92,5 +94,31 @@ public class DailyScheduleDefManageTableModel extends AbstractListTableModel<Dai
     
     return retVal;
   }
+
+  /* (non-Javadoc)
+   * @see com.peaksmartphone.manpowerplanner.core.gui.common.table.AbstractListTableModel#replaceOrAddDataObject(java.lang.Object)
+   */
+  @Override
+  public void replaceOrAddDataObject(DailyScheduleDef pData)
+  {
+    List<DailyScheduleDef> dataList = new ArrayList<DailyScheduleDef>(getDataList());
+    
+    int index = dataList.indexOf(pData);
+    
+    if (index == -1)
+    {
+      dataList.add(pData);
+    }
+    else
+    {
+      dataList.set(index, pData);
+    }
+    
+    Collections.sort(dataList);
+    
+    refresh(dataList);
+  }
+  
+  
 
 }

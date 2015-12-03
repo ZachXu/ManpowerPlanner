@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
+import com.peaksmartphone.manpowerplanner.core.data.exception.MPPRuntimeException;
+
 /**
  * <p> Title: {@link NumberField}</p>
  * 
@@ -151,7 +153,18 @@ public class NumberField extends JTextField
    */
   public Integer getIntegerVal()
   {
-    return Integer.parseInt(getText());
+    Integer retVal = null;
+    
+    try
+    {
+      retVal = Integer.parseInt(getText()); 
+    }
+    catch(NumberFormatException pE)
+    {
+      retVal = 0;
+    }
+    
+    return retVal;
   }
   
   /**

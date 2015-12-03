@@ -30,6 +30,8 @@ public class DateUtil
   
   public static final SimpleDateFormat SIMPLEDATEFORMAT = new SimpleDateFormat("YYYY.MM.dd");
   
+  public static final SimpleDateFormat FILEDATEFORMAT = new SimpleDateFormat("YYYYMMddHHmmss");
+  
   /**
    * get a Calendar instance only contains Date
    * @param pDate

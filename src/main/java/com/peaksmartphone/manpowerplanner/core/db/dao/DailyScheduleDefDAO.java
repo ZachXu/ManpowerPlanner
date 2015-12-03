@@ -50,7 +50,7 @@ public class DailyScheduleDefDAO extends AbstractDAO<DailyScheduleDef>
   @Override
   public List<DailyScheduleDef> getAllData()
   {
-    String hql = "from " + DailyScheduleDef.class.getName() + " dsd";
+    String hql = "FROM " + DailyScheduleDef.class.getName() + " dsd ORDER BY dsd.mSortIndex ASC";
     
     Query query = mSessionManager.createQuery(hql);
     

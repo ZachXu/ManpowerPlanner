@@ -149,4 +149,20 @@ public abstract class AbstractListTableModel<T> extends AbstractTableModel
   {
     return Collections.unmodifiableList(mDataList);
   }
+  
+  /**
+   * 
+   * @return
+   */
+  public T getLastData()
+  {
+    T returnVal = null;
+    
+    if (getRowCount() > 0)
+    {
+      returnVal = getObjectAt(getRowCount() - 1);
+    }
+    
+    return returnVal;
+  }
 }

@@ -12,7 +12,7 @@ package com.peaksmartphone.manpowerplanner.core.data;
  *
  * 
  */
-public class DailyScheduleDef extends AbstractObject
+public class DailyScheduleDef extends AbstractObject implements Comparable<DailyScheduleDef>
 {
 	/**
    * 
@@ -23,8 +23,8 @@ public class DailyScheduleDef extends AbstractObject
   
   private final String mName;
 	private final boolean mIsRestDay;
-	private final int mMaxEmployeeAmount;
-	private final int mSortIndex;
+	private final Integer mMaxEmployeeAmount;
+	private final Integer mSortIndex;
 	
 	public static DailyScheduleDef EMPTY_OBJECT = new DailyScheduleDef();
 	
@@ -56,11 +56,18 @@ public class DailyScheduleDef extends AbstractObject
 	 * 
 	 * @return
 	 */
-	public static DailyScheduleDef newInstance()
-	{
-	  return new DailyScheduleDef(IdGenerator.createId(), null, null, false, 
-	      DEFAULT_MAXEMPLOYEEAMOUNT, Integer.MAX_VALUE);
-	}
+	public static DailyScheduleDef newInstance(DailyScheduleDef pLastDailyScheduleDef)
+  {
+	  int sortIndex = 0;
+	  
+	  if (pLastDailyScheduleDef != null && !DailyScheduleDef.EMPTY_OBJECT.equals(pLastDailyScheduleDef))
+	  {
+	    sortIndex = pLastDailyScheduleDef.getSortIndex() + 10;
+	  }
+	  
+    return new DailyScheduleDef(IdGenerator.createId(), null, null, false, 
+        DEFAULT_MAXEMPLOYEEAMOUNT, sortIndex);
+  }
 	
 	/**
 	 * 
@@ -96,7 +103,7 @@ public class DailyScheduleDef extends AbstractObject
 	/**
 	 * @return the employeeAmount
 	 */
-	public int getEmployeeAmount()
+	public Integer getEmployeeAmount()
 	{
 		return mMaxEmployeeAmount;
 	}
@@ -104,7 +111,7 @@ public class DailyScheduleDef extends AbstractObject
 	/**
 	 * @return the sortIndex
 	 */
-	public int getSortIndex()
+	public Integer getSortIndex()
 	{
 		return mSortIndex;
 	}
@@ -123,5 +130,19 @@ public class DailyScheduleDef extends AbstractObject
       int pMaxEmployeeAmount, int pSortIndex)
   {
     return new DailyScheduleDef(pId, pVersion, pName, pIsRestDay, pMaxEmployeeAmount, pSortIndex);
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  @Override
+  public int compareTo(DailyScheduleDef pO)
+  {
+    if (pO == null)
+    {
+      return -1;
+    }
+    
+    return getSortIndex().compareTo(pO.getSortIndex());
   }
 }

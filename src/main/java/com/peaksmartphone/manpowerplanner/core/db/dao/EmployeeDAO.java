@@ -108,18 +108,24 @@ public class EmployeeDAO extends AbstractDAO<Employee>
    * @param pDailyScheduleDefId
    * all avaiable Employee list for date and dailyScheduleDefId
    */
-  public List<Employee> getAvaiableEmployeeList(Date pDate, String pDailyScheduleDefId)
+  public List<Employee> getAvaiableEmployeeList(Date pDate, String pDailyScheduleDefId, Date pStartDate, Date pEndDate)
   {
-    String hql = "from " + Employee.class.getName() + " emp "
-               + " where emp.mId not in "
-               + " (select assignEmp.mId " 
-               + " from " + DailyScheduleInst.class.getName() + " dsi " 
-               + " left join dsi.mAssignedEmployees assignEmp "
-               + " where dsi.mScheduledDate = :mScheduledDate and dsi.mDailyScheduleDefId <> :mDailyScheduleDefId)";
+    String hql = "FROM " + Employee.class.getName() + " emp " 
+               + " WHERE emp.mId NOT IN " 
+               + " (SELECT assignEmp.mId " 
+               + "  FROM com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst dsi "  
+               + "  LEFT JOIN dsi.mAssignedEmployees assignEmp "  
+               + "  WHERE dsi.mScheduledDate = :mScheduledDate and dsi.mDailyScheduleDefId <> :mDailyScheduleDefId) "
+               + "  AND (SELECT count(*) "
+               + "       FROM com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst cdsi "
+               + "       LEFT JOIN cdsi.mAssignedEmployees cassignEmp "
+               + "       WHERE cassignEmp.mId = emp.mId AND (cdsi.mScheduledDate >= :mStartDate AND cdsi.mScheduledDate <= :mEndDate)) < emp.mMaxOccurInWeek";
   
     Query query = mSessionManager.createQuery(hql);
     query.setDate("mScheduledDate", pDate);
     query.setString("mDailyScheduleDefId", pDailyScheduleDefId);
+    query.setDate("mStartDate", pStartDate);
+    query.setDate("mEndDate", pEndDate);
 
     return query.list();
   }

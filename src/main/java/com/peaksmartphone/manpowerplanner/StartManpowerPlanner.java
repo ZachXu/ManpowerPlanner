@@ -10,7 +10,10 @@ import javax.swing.plaf.ColorUIResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleInst;
 import com.peaksmartphone.manpowerplanner.core.gui.mainpage.MainPageController;
+import com.peaksmartphone.manpowerplanner.core.gui.weeklyscheduleinst.WeeklyScheduleInstValueParser;
+import com.peaksmartphone.manpowerplanner.utils.ExcelExportUtil;
 import com.peaksmartphone.manpowerplanner.utils.MPPProperties;
 
 /**
@@ -76,6 +79,8 @@ public class StartManpowerPlanner {
     ToolTipManager.sharedInstance().setInitialDelay(500);
     ToolTipManager.sharedInstance().setReshowDelay(500);
     ToolTipManager.sharedInstance().setDismissDelay(30000);
+    
+    ExcelExportUtil.registerValueParser(DailyScheduleInst.class, new WeeklyScheduleInstValueParser());
     
 
     final MainPageController mpController = new MainPageController();

@@ -43,6 +43,9 @@ public class WeeklyScheduleInstTableModel extends AbstractTableModel
   
   private final Calendar mCalendar = Calendar.getInstance();
   
+  private Date mStartDate = new Date(); 
+  private Date mEndDate = new Date(); 
+  
   /**
    * 
    */
@@ -100,16 +103,22 @@ public class WeeklyScheduleInstTableModel extends AbstractTableModel
     return mDailyScheduleDefList.size();
   }
   
+  public void setPeriodDate(Date pStartDate, Date pEndDate)
+  {
+    mCalendar.setTime(pStartDate);
+    startCalendarOnMontag();
+    
+    mStartDate = pStartDate;
+    mEndDate = pEndDate;
+  }
+  
   /**
    * 
    * @param pStartDate
    * @param pDataTable
    */
-  public void refresh(Date pStartDate, Table<Date, DailyScheduleDef, DailyScheduleInst> pDataTable)
+  public void refresh(Table<Date, DailyScheduleDef, DailyScheduleInst> pDataTable)
   {
-    mCalendar.setTime(pStartDate);
-    startCalendarOnMontag();
-    
     mDataTable = pDataTable;
     fireTableDataChanged();
   }
@@ -172,4 +181,19 @@ public class WeeklyScheduleInstTableModel extends AbstractTableModel
     mDataTable.put(pRowDate, pColumnDef, pReplaceDailyScheduleInst);
   }
 
+  /**
+   * @return the startDate
+   */
+  public Date getStartDate()
+  {
+    return mStartDate;
+  }
+
+  /**
+   * @return the endDate
+   */
+  public Date getEndDate()
+  {
+    return mEndDate;
+  }
 }

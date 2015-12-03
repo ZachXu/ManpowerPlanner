@@ -97,5 +97,13 @@ public abstract class AbstractManageController<T> implements DisplayController<T
   {
     mView.setMaskStatus(pMaskStatus);
   }
+
+  /**
+   * @return the tableModel
+   */
+  public AbstractListTableModel<T> getTableModel()
+  {
+    return mTableModel;
+  }
   
 }

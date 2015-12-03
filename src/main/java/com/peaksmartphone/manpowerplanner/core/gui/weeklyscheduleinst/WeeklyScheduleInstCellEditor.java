@@ -57,9 +57,9 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
    */
   private static final long serialVersionUID = 1L;
   
-  private final Joiner mSplitJoiner = Joiner.on(",");
-  
   private DailyScheduleInstService mServiceDailyScheduleInst = DailyScheduleInstService.getInstance();
+  
+  private WeeklyScheduleInstValueParser mValueParser = new WeeklyScheduleInstValueParser();
    
   /**
    * @param pCellDailySchedueInst
@@ -134,13 +134,15 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
         {
           dailyscheduleinst = (DailyScheduleInst)objValue;
         }  
-        
-        List<Employee> avaiableEmployeeList = EmployeeService.getInstance().getAvaiableEmployeeList(rowDate, columnDef.getId());
+
+        List<Employee> avaiableEmployeeList = EmployeeService.getInstance().getAvaiableEmployeeList(rowDate, 
+            columnDef.getId(), weeklyScheduleInstTableModel.getStartDate(), weeklyScheduleInstTableModel.getEndDate());
         
         List<Employee> rsList = MultiSelectionController.openMultiSelectionDialog(owner, 
             btnEdit.getLocation(), 
             avaiableEmployeeList, 
-            selectedList);
+            selectedList,
+            columnDef.getEmployeeAmount());
         
         if (rsList != null && !rsList.isEmpty())
         {
@@ -190,18 +192,11 @@ public class WeeklyScheduleInstCellEditor extends AbstractCellEditor implements 
   protected void initialValueData(final List<Employee> pSelectedList, final JLabel pLblTblCell,
       final DailyScheduleInst pDaiyScheduleInst)
   {
-    String value = "";
-    
-    List<String> strList = new ArrayList<String>();
-    
-    for (Employee assginedemployee : pDaiyScheduleInst.getAssignedEmployees())
-    {
-      strList.add(assginedemployee.getEmployeeName());
-    }
+    String value = mValueParser.parseValue(pDaiyScheduleInst);
     
     pSelectedList.addAll(pDaiyScheduleInst.getAssignedEmployees());
     
-    value = mSplitJoiner.join(strList);
+    
     pLblTblCell.setText(value);
     pLblTblCell.setToolTipText(value);
   }

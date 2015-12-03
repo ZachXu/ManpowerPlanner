@@ -6,9 +6,11 @@ import java.util.List;
 import com.google.common.base.Strings;
 import com.peaksmartphone.manpowerplanner.core.MPPManager;
 import com.peaksmartphone.manpowerplanner.core.data.DailyScheduleDef;
+import com.peaksmartphone.manpowerplanner.core.data.exception.MPPRuntimeException;
 import com.peaksmartphone.manpowerplanner.core.gui.common.AbstractManageController;
 import com.peaksmartphone.manpowerplanner.core.gui.common.toolbar.MaskStatus;
 import com.peaksmartphone.manpowerplanner.core.services.DailyScheduleDefService;
+import com.peaksmartphone.manpowerplanner.utils.MPPExceptionHandler;
 
 /**
  * <p> Title: {@link DailyScheduleDefManageController} </p>
@@ -62,9 +64,24 @@ public class DailyScheduleDefManageController extends AbstractManageController<D
   @Override
   public void onDelete(ActionEvent pEvent)
   {
-    DailyScheduleDef data = readDataObject();
+    try
+    {
+      DailyScheduleDef data = readDataObject();
+      
+      if (!DailyScheduleDef.EMPTY_OBJECT.equals(data) && data != null)
+      {
+        mServiceDailyScheduleDef.deleteData(data);
+        
+        MPPManager.getInstance().getSessionManager().commit();
+        
+        onRefresh(pEvent);
+      }
+    }
+    catch(Exception e)
+    {
+      MPPExceptionHandler.handleRuntimeException(e);
+    }
     
-    mServiceDailyScheduleDef.deleteData(data);
   }
 
   /* (non-Javadoc)
@@ -73,7 +90,7 @@ public class DailyScheduleDefManageController extends AbstractManageController<D
   @Override
   public void onNew(ActionEvent pEvent)
   {
-    setDataObject(DailyScheduleDef.newInstance());
+    setDataObject(DailyScheduleDef.newInstance(((DailyScheduleDefManageTableModel)getTableModel()).getLastData()));
     setMaskStatus(MaskStatus.NEW);
   }
 

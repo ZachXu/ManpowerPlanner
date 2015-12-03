@@ -19,8 +19,8 @@ public class TestData
   public static SessionManager getTestSessionManager()
   {
     return new SessionManager(
-        "MPP", "MPP", 
-        "jdbc:derby:./singlederby/MPP;create=true", 
-        "MPP", "org.apache.derby.jdbc.EmbeddedDriver", "org.hibernate.dialect.DerbyDialect");
+        "TESTMPP", "MPP", 
+        "jdbc:derby:./singlederby/TESTMPP;create=true", 
+        "TESTMPP", "org.apache.derby.jdbc.EmbeddedDriver", "org.hibernate.dialect.DerbyDialect");
   }
 }
